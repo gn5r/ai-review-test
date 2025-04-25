@@ -1,0 +1,21 @@
+name: "ai-review"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  run-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini Review Bot
+        uses: Nasubikun/ai-reviewer@v1.0.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LANGUAGE: "Japanese"
